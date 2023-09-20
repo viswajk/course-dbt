@@ -1,0 +1,117 @@
+version: 2
+
+models:
+  - name: _stg_postgres_addresses
+    description: Addresses of all users
+    columns:
+      - name: ADDRESS_ID 
+        description: unique id associated to each address
+      - name: ADDRESS
+        description: address of specific users
+      - name: ZIPCODE 
+        description: zipcodes associated with each address
+      - name: STATE
+        description: states that the user resides in 
+      - name: COUNTRY
+        description: country that the user resides in
+
+  - name: _stg_postgres_events
+    description: events performed by all users
+    columns:
+      - name: EVENT_ID
+        description: unique id associated to each event
+      - name: SESSION_ID 
+        description: unique id associated to specific sessions for a user
+      - name: USER_ID 
+        description: unique id associated with each user
+      - name: PAGE_URL
+        description: url that the user is accessing in the current session 
+      - name: EVENT_TYPE 
+        description: type of event being performed by the user
+      - name: ORDER_ID 
+        description: unique id of the order placed
+      - name: PRODUCT_ID 
+        description: unique id of the product being purchased
+
+  - name: _stg_postgres_order_items
+    description: products purchased in each order 
+    columns:
+      - name: ORDER_ID
+        description: unique id associated to order
+      - name: PRODUCT_ID
+        description: unique id of the product being purchased
+      - name: QUANTITY 
+        description: number of quantity of the specific products
+
+  - name: _stg_postgres_orders
+    description: products purchased in each order 
+    columns:
+      - name: ORDER_ID
+        description: unique id associated to each order
+      - name: USER_ID 
+        description: unique id associated with each user
+      - name: PROMO_ID 
+        description: unique id associated with each prommo
+      - name: ADDRESS_ID
+        description: unique id associated to each address 
+      - name: CREATED_AT
+        description: time when the order was placed
+      - name: ORDER_COST
+        description: cost of the order
+      - name: SHIPPING_COST   
+        description: shipping costs associated with each order
+      - name: ORDER_TOTAL
+        description: total costs of the entire order
+      - name: TRACKING_ID
+        description: unique id to track shipping status
+      - name: SHIPPING_SERVICE
+        description: type of delivery to user
+      - name: ESTIMATED_DELIVERY_AT
+        description: tentative time at which the order reaches the user
+      - name: DELIVERED_AT
+        description: time at which the order was delivered
+      - name: STATUS
+        description: status of the order
+
+  - name: _stg_postgres_products
+    description: products purchased in each order 
+    columns:
+      - name: PRODUCT_ID
+        description: unique id of the product being purchased
+      - name: NAME
+        description: name the product being purchased
+      - name: PRICE
+        description: price of the specific product
+
+  - name: _stg_postgres_promos
+    description: available promos 
+    columns:
+      - name: PRODUCT_ID
+        description: unique id of the product being purchased
+      - name: NAME
+        description: name the product being purchased
+      - name: PRICE
+        description: price of the specific product
+      - name: INVENTORY
+        description: number of each product available currently
+
+  - name: _stg_postgres_users
+    description: all user data
+    columns:
+      - name: USER_ID 
+        description: unique id associated with each user
+      - name: FIRST_NAME 
+        description: first name of user
+      - name: LAST_NAME
+        description: user's last name 
+      - name: CREATED_AT
+        description: time when the user was created
+      - name: EMAIL
+        description: email address associated to the specific user
+      - name: PHONE_NUMBER   
+        description: contact details of specific user
+      - name: UPDATED_AT
+        description: time at which the user details was last updated
+      - name: ADDRESS_ID
+        description: unique id associated to each address
+        
