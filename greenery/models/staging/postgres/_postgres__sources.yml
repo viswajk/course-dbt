@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+
+  - name: postgres
+    database: raw
+    schema: public
+    
+    tables: 
+      - name: ADDRESSES 
+        loaded_at_field: created_at
+        description: contains address information of each user
+      - name: EVENTS 
+        loaded_at_field: created_at
+        description: contains information about events performed in web sessions
+      - name: ORDERS 
+        loaded_at_field: created_at
+        description: contains information about each order
+      - name: ORDER_ITEMS 
+        loaded_at_field: created_at
+        description: contains item information
+      - name: PRODUCTS 
+        loaded_at_field: created_at
+        description: contains information about each available product
+      - name: PROMOS 
+        loaded_at_field: created_at
+        description: contains information about the available promos
+      - name: USERS
+        loaded_at_field: created_at
+        description: contains information about each user
