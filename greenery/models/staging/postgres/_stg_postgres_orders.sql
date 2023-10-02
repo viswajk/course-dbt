@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
 Select ORDER_ID, 
     USER_ID, 
     PROMO_ID, 

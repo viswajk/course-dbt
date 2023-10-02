@@ -6,6 +6,9 @@ models:
     columns:
       - name: ADDRESS_ID 
         description: unique id associated to each address
+        tests:
+          - unique
+          - not_null
       - name: ADDRESS
         description: address of specific users
       - name: ZIPCODE 
@@ -20,40 +23,87 @@ models:
     columns:
       - name: EVENT_ID
         description: unique id associated to each event
+        tests:
+          - unique
+          - not_null
       - name: SESSION_ID 
         description: unique id associated to specific sessions for a user
       - name: USER_ID 
         description: unique id associated with each user
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_users')
+              field: user_id
       - name: PAGE_URL
         description: url that the user is accessing in the current session 
       - name: EVENT_TYPE 
         description: type of event being performed by the user
+        tests:
+          - accepted_values:
+              values:
+                - checkout
+                - package_shipped
+                - add_to_cart
+                - page_view
       - name: ORDER_ID 
         description: unique id of the order placed
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_orders')
+              field: order_id
       - name: PRODUCT_ID 
         description: unique id of the product being purchased
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_products')
+              field: product_id
 
   - name: _stg_postgres_order_items
     description: products purchased in each order 
     columns:
       - name: ORDER_ID
         description: unique id associated to order
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_orders')
+              field: order_id
       - name: PRODUCT_ID
         description: unique id of the product being purchased
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_products')
+              field: product_id
       - name: QUANTITY 
         description: number of quantity of the specific products
+        tests:
+          - positive_values
 
   - name: _stg_postgres_orders
     description: products purchased in each order 
     columns:
       - name: ORDER_ID
         description: unique id associated to each order
+        tests:
+          - unique
+          - not_null
       - name: USER_ID 
         description: unique id associated with each user
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_users')
+              field: user_id
       - name: PROMO_ID 
-        description: unique id associated with each prommo
+        description: unique id associated with each promo
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_promos')
+              field: promo_id
       - name: ADDRESS_ID
-        description: unique id associated to each address 
+        description: unique id associated to each address
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_addresses')
+              field: address_id 
       - name: CREATED_AT
         description: time when the order was placed
       - name: ORDER_COST
@@ -72,12 +122,18 @@ models:
         description: time at which the order was delivered
       - name: STATUS
         description: status of the order
+        tests:
+          - accepted_values:
+              values: ['delivered', 'shipped', 'preparing']
 
   - name: _stg_postgres_products
     description: products purchased in each order 
     columns:
       - name: PRODUCT_ID
         description: unique id of the product being purchased
+        tests:
+          - unique
+          - not_null
       - name: NAME
         description: name the product being purchased
       - name: PRICE
@@ -86,20 +142,26 @@ models:
   - name: _stg_postgres_promos
     description: available promos 
     columns:
-      - name: PRODUCT_ID
-        description: unique id of the product being purchased
-      - name: NAME
-        description: name the product being purchased
-      - name: PRICE
-        description: price of the specific product
-      - name: INVENTORY
-        description: number of each product available currently
+      - name: PROMO_ID
+        description: unique id of the promo being used
+        tests:
+          - unique
+          - not_null
+      - name: DISCOUNT
+        description: amount of DISCOUNT
+        tests:
+          - positive_values
+      - name: STATUS
+        description: status of the promo
 
   - name: _stg_postgres_users
     description: all user data
     columns:
       - name: USER_ID 
         description: unique id associated with each user
+        tests:
+          - unique
+          - not_null
       - name: FIRST_NAME 
         description: first name of user
       - name: LAST_NAME
@@ -114,4 +176,8 @@ models:
         description: time at which the user details was last updated
       - name: ADDRESS_ID
         description: unique id associated to each address
+        tests:
+          - relationships:
+              to: ref('_stg_postgres_addresses')
+              field: address_id
         

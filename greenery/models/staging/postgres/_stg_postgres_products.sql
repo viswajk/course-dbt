@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
 Select 
     PRODUCT_ID, 
     NAME, 

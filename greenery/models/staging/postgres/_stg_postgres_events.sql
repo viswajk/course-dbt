@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
 Select EVENT_ID, 
   SESSION_ID, 
   USER_ID, 

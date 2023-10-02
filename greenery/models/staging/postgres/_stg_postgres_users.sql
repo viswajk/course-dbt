@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
 Select 
     USER_ID, 
     FIRST_NAME, 
